@@ -13,4 +13,9 @@ public class Utils {
         }
         return "";
     }
+
+    public static String getEncodedEmail(String email){
+        return email.replace("@","%40").replace("+","%2B");
+    }
+
 }
