@@ -1,3 +1,4 @@
+import Http.ResponseCode;
 import gmailnator.CookieHeaders;
 import gmailnator.EndPoints;
 
@@ -32,9 +33,9 @@ public class GenerateEmail {
 
         Response response = call.execute();
 
-        assertThat(response.code(), equalTo(200));
+        assertThat(response.code(), equalTo(ResponseCode.OK));
 
-        List<String> cookies = response.headers().values("Set-Cookie");
+        List<String> cookies = response.headers().values(CookieHeaders.SET_COOKIE);
         String csrfGmailnatorToken = Utils.getCsrfGmailnatorCookie(cookies);
 
         RequestBody formBody = new FormBody.Builder()
@@ -44,14 +45,14 @@ public class GenerateEmail {
 
         Request generateEmailRequest = new Request.Builder()
                 .url(EndPoints.BASE_URL + EndPoints.GENERATE_EMAIL)
-                .header("Cookie", CookieHeaders.CSRF_GMAILNATOR_COOKIE + "=" + csrfGmailnatorToken)
+                .header(CookieHeaders.COOKIE, CookieHeaders.CSRF_GMAILNATOR_COOKIE + "=" + csrfGmailnatorToken)
                 .post(formBody)
                 .build();
         Call generateEmailCall = client.newCall(generateEmailRequest);
 
         Response generateEmailResponse = generateEmailCall.execute();
 
-        assertThat(response.code(), equalTo(200));
+        assertThat(generateEmailResponse.code(), equalTo(ResponseCode.OK));
 
         String generatedEmail = generateEmailResponse.body().string();
 
