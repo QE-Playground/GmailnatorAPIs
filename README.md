@@ -7,3 +7,4 @@ How to run gmailnator REST calls:
 2. Import project as Maven project.
 
 
+Updated 2021-01-20: I integrated the first chain of REST calls with Extent Report.  https://github.com/truongd8593/VincentAutoGmailnator/wiki
