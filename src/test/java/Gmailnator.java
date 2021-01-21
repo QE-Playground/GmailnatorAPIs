@@ -57,9 +57,9 @@ public class Gmailnator {
 
         Response response = call.execute();
 
-        softAssertion.assertTrue(response.code() == ResponseCode.OK, "Failed to access gmailnator's home page.");
+        softAssertion.assertTrue(response.code() == ResponseCode.OK.getIntValue(), "Failed to access gmailnator's home page.");
 
-        if (response.code() == ResponseCode.OK) {
+        if (response.code() == ResponseCode.OK.getIntValue()) {
             test.log(Status.PASS, "Access gmailnator's home page successfully.");
         } else {
             test.log(Status.FAIL, "Failed to access gmailnator's home page.");
@@ -85,9 +85,9 @@ public class Gmailnator {
 
         String generatedEmail = generateEmailResponse.body().string();
 
-        softAssertion.assertTrue(generateEmailResponse.code() == ResponseCode.OK, "Failed to access gmailnator's home page.");
+        softAssertion.assertTrue(generateEmailResponse.code() == ResponseCode.OK.getIntValue(), "Failed to access gmailnator's home page.");
 
-        if (generateEmailResponse.code() == ResponseCode.OK) {
+        if (generateEmailResponse.code() == ResponseCode.OK.getIntValue()) {
             test.log(Status.PASS, "Generated email from Gmailnator: " + generatedEmail);
         } else {
             test.log(Status.FAIL, "An error has occurred. Cannot generate email.");
@@ -108,9 +108,9 @@ public class Gmailnator {
 
         Response response = call.execute();
 
-        softAssertion.assertTrue(response.code() == ResponseCode.OK, "Failed to access mailbox.");
+        softAssertion.assertTrue(response.code() == ResponseCode.OK.getIntValue(), "Failed to access mailbox.");
 
-        if (response.code() == ResponseCode.OK) {
+        if (response.code() == ResponseCode.OK.getIntValue()) {
             test.log(Status.PASS, "Access mail box successfully.");
         } else {
             test.log(Status.FAIL, "Failed to access mailbox.");
@@ -134,9 +134,9 @@ public class Gmailnator {
 
         Response loadMailListResponse = loadMailListCall.execute();
 
-        softAssertion.assertTrue(loadMailListResponse.code() == ResponseCode.OK, "Failed to load mail list.");
+        softAssertion.assertTrue(loadMailListResponse.code() == ResponseCode.OK.getIntValue(), "Failed to load mail list.");
 
-        if (loadMailListResponse.code() == ResponseCode.OK) {
+        if (loadMailListResponse.code() == ResponseCode.OK.getIntValue()) {
             test.log(Status.PASS, "Loading mail list successfully.");
         } else {
             test.log(Status.FAIL, "Failed to load mail list.");
@@ -170,9 +170,9 @@ public class Gmailnator {
 
         String getSingleMessageResponseBody = getSingleMessageResponse.body().string();
 
-        softAssertion.assertTrue(getSingleMessageResponse.code() == ResponseCode.OK, "Failed to get single message.");
+        softAssertion.assertTrue(getSingleMessageResponse.code() == ResponseCode.OK.getIntValue(), "Failed to get single message.");
 
-        if (loadMailListResponse.code() == ResponseCode.OK) {
+        if (loadMailListResponse.code() == ResponseCode.OK.getIntValue()) {
             test.log(Status.PASS, "Getting single message successfully.");
         } else {
             test.log(Status.FAIL, "Failed to get single message.");
