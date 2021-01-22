@@ -43,12 +43,14 @@ public class Gmailnator {
         htmlReporter.config().setReportName("report gmailnator");
         htmlReporter.config().setTheme(Theme.STANDARD);
 
+        test = report.createTest("Gmailnator", "Gmailnator's REST APIs");
+
     }
 
     @Test
     public void generateEmail() throws IOException {
 
-        test = report.createTest("generateEmail", "Generate a temporary email by gmailnator's REST APIs");
+        ExtentTest testCase = test.createNode("generateEmail", "Generate a temporary email by gmailnator's REST APIs");
 
         Request request = new Request.Builder()
                 .url(EndPoints.BASE_URL + "/")
@@ -60,9 +62,9 @@ public class Gmailnator {
         softAssertion.assertTrue(response.code() == ResponseCode.OK.getIntValue(), "Failed to access gmailnator's home page.");
 
         if (response.code() == ResponseCode.OK.getIntValue()) {
-            test.log(Status.PASS, "Access gmailnator's home page successfully.");
+            testCase.log(Status.PASS, "Access gmailnator's home page successfully.");
         } else {
-            test.log(Status.FAIL, "Failed to access gmailnator's home page.");
+            testCase.log(Status.FAIL, "Failed to access gmailnator's home page.");
         }
 
 
@@ -88,9 +90,9 @@ public class Gmailnator {
         softAssertion.assertTrue(generateEmailResponse.code() == ResponseCode.OK.getIntValue(), "Failed to access gmailnator's home page.");
 
         if (generateEmailResponse.code() == ResponseCode.OK.getIntValue()) {
-            test.log(Status.PASS, "Generated email from Gmailnator: " + generatedEmail);
+            testCase.log(Status.PASS, "Generated email from Gmailnator: " + generatedEmail);
         } else {
-            test.log(Status.FAIL, "An error has occurred. Cannot generate email.");
+            testCase.log(Status.FAIL, "An error has occurred. Cannot generate email.");
         }
 
 
@@ -99,7 +101,7 @@ public class Gmailnator {
     @Test
     public void getSingleMessage() throws IOException {
 
-        test = report.createTest("getSingleMessage", "Get a single message from a provided email address.");
+        ExtentTest testCase = test.createNode("getSingleMessage", "Get a single message from a provided email address.");
 
         Request request = new Request.Builder()
                 .url(EndPoints.BASE_URL + EndPoints.INBOX)
@@ -111,9 +113,9 @@ public class Gmailnator {
         softAssertion.assertTrue(response.code() == ResponseCode.OK.getIntValue(), "Failed to access mailbox.");
 
         if (response.code() == ResponseCode.OK.getIntValue()) {
-            test.log(Status.PASS, "Access mail box successfully.");
+            testCase.log(Status.PASS, "Access mail box successfully.");
         } else {
-            test.log(Status.FAIL, "Failed to access mailbox.");
+            testCase.log(Status.FAIL, "Failed to access mailbox.");
         }
 
         List<String> cookies = response.headers().values(CookieHeaders.SET_COOKIE);
@@ -137,9 +139,9 @@ public class Gmailnator {
         softAssertion.assertTrue(loadMailListResponse.code() == ResponseCode.OK.getIntValue(), "Failed to load mail list.");
 
         if (loadMailListResponse.code() == ResponseCode.OK.getIntValue()) {
-            test.log(Status.PASS, "Loading mail list successfully.");
+            testCase.log(Status.PASS, "Loading mail list successfully.");
         } else {
-            test.log(Status.FAIL, "Failed to load mail list.");
+            testCase.log(Status.FAIL, "Failed to load mail list.");
         }
 
         String loadMailListResponseBody = loadMailListResponse.body().string();
@@ -173,9 +175,9 @@ public class Gmailnator {
         softAssertion.assertTrue(getSingleMessageResponse.code() == ResponseCode.OK.getIntValue(), "Failed to get single message.");
 
         if (loadMailListResponse.code() == ResponseCode.OK.getIntValue()) {
-            test.log(Status.PASS, "Getting single message successfully.");
+            testCase.log(Status.PASS, "Getting single message successfully.");
         } else {
-            test.log(Status.FAIL, "Failed to get single message.");
+            testCase.log(Status.FAIL, "Failed to get single message.");
         }
 
     }
