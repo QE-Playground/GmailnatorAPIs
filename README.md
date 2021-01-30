@@ -1,5 +1,6 @@
 # VincentAutoGmailnator
 API calls for gmailnator using okHttp3 and testng.
+This public version does not come with all features which I have developed, namely an extension of AsertJ soft assertion which can provide steps in extent report, and work around when we have multiple TestNG test clases.
 
 How to run gmailnator REST calls: 
 
