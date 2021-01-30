@@ -4,10 +4,11 @@ import gmailnator.EndPoints;
 
 import gmailnator.Utils;
 import okhttp3.*;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
+import org.assertj.core.api.SoftAssertions;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -27,9 +28,9 @@ public class Gmailnator {
 
     private ExtentHtmlReporter htmlReporter;
 
-    private SoftAssert softAssertion = new SoftAssert();;
+    private SoftAssertions softAssertion = new SoftAssertions();
 
-    private static final String TEST_EMAIL = "shuntmp+lakhj@gmail.com";
+    private static final String TEST_EMAIL = "combtmp+abtjb@gmail.com";
 
     @BeforeSuite
     public void init() {
@@ -59,7 +60,7 @@ public class Gmailnator {
 
         Response response = call.execute();
 
-        softAssertion.assertTrue(response.code() == ResponseCode.OK.getIntValue(), "Failed to access gmailnator's home page.");
+        softAssertion.assertThat(response.code() == ResponseCode.OK.getIntValue()).isTrue();
 
         if (response.code() == ResponseCode.OK.getIntValue()) {
             testCase.log(Status.PASS, "Access gmailnator's home page successfully.");
@@ -87,7 +88,7 @@ public class Gmailnator {
 
         String generatedEmail = generateEmailResponse.body().string();
 
-        softAssertion.assertTrue(generateEmailResponse.code() == ResponseCode.OK.getIntValue(), "Failed to access gmailnator's home page.");
+        softAssertion.assertThat(generateEmailResponse.code() == ResponseCode.OK.getIntValue()).isTrue();
 
         if (generateEmailResponse.code() == ResponseCode.OK.getIntValue()) {
             testCase.log(Status.PASS, "Generated email from Gmailnator: " + generatedEmail);
@@ -110,7 +111,7 @@ public class Gmailnator {
 
         Response response = call.execute();
 
-        softAssertion.assertTrue(response.code() == ResponseCode.OK.getIntValue(), "Failed to access mailbox.");
+        softAssertion.assertThat(response.code() == ResponseCode.OK.getIntValue()).isTrue();
 
         if (response.code() == ResponseCode.OK.getIntValue()) {
             testCase.log(Status.PASS, "Access mail box successfully.");
@@ -136,7 +137,7 @@ public class Gmailnator {
 
         Response loadMailListResponse = loadMailListCall.execute();
 
-        softAssertion.assertTrue(loadMailListResponse.code() == ResponseCode.OK.getIntValue(), "Failed to load mail list.");
+        softAssertion.assertThat(loadMailListResponse.code() == ResponseCode.OK.getIntValue()).isTrue();
 
         if (loadMailListResponse.code() == ResponseCode.OK.getIntValue()) {
             testCase.log(Status.PASS, "Loading mail list successfully.");
@@ -172,7 +173,7 @@ public class Gmailnator {
 
         String getSingleMessageResponseBody = getSingleMessageResponse.body().string();
 
-        softAssertion.assertTrue(getSingleMessageResponse.code() == ResponseCode.OK.getIntValue(), "Failed to get single message.");
+        softAssertion.assertThat(getSingleMessageResponse.code() == ResponseCode.OK.getIntValue()).isTrue();
 
         if (loadMailListResponse.code() == ResponseCode.OK.getIntValue()) {
             testCase.log(Status.PASS, "Getting single message successfully.");
@@ -182,11 +183,13 @@ public class Gmailnator {
 
     }
 
-    @AfterSuite
-    public void tearDown() {
-
+    @AfterMethod
+    public void testTearDown() {
         softAssertion.assertAll();
-        report.flush();
+    }
 
+    @AfterSuite
+    public void afterSuite() {
+        report.flush();
     }
 }
