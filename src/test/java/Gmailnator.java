@@ -30,7 +30,7 @@ public class Gmailnator {
 
     private SoftAssertions softAssertion = new SoftAssertions();
 
-    private static final String TEST_EMAIL = "combtmp+abtjb@gmail.com";
+    private static final String TEST_EMAIL = "dueltmp+yl3ko@gmail.com";
 
     @BeforeSuite
     public void init() {
@@ -153,7 +153,8 @@ public class Gmailnator {
                 .replace("\\", "");
 
         String emailServer = loadMailListResponseBody.substring(loadMailListResponseBody.indexOf(EndPoints.BASE_URL) + EndPoints.BASE_URL.length() + 1, loadMailListResponseBody.indexOf(EndPoints.MESSAGE_ID));
-        String messageId = loadMailListResponseBody.substring(loadMailListResponseBody.indexOf(EndPoints.MESSAGE_ID) + EndPoints.MESSAGE_ID.length() + 1, loadMailListResponseBody.indexOf("<table") - 7);
+        int beginIndex = loadMailListResponseBody.indexOf(EndPoints.MESSAGE_ID) + EndPoints.MESSAGE_ID.length() + 1;
+        String messageId = loadMailListResponseBody.substring(beginIndex, beginIndex + 16);
 
         RequestBody formBodyGetSingleMessage = new FormBody.Builder()
                 .add(CookieHeaders.CSRF_GMAILNATOR_TOKEN, csrfGmailnatorToken)
